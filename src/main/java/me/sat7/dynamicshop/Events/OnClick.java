@@ -42,7 +42,7 @@ public class OnClick implements Listener {
         }
 
         Player player = (Player)e.getWhoClicked();
-        player.sendMessage(String.valueOf(e.getSlot()));
+        //player.sendMessage(String.valueOf(e.getSlot()));
         // 클릭된 인벤토리가 UI임
         if(e.getClickedInventory() != player.getInventory())
         {

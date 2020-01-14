@@ -1633,8 +1633,8 @@ public class DynaShopAPI {
 
         // 실제 거래부----------
 
-        EconomyResult result = DynamicShop.economyManager.depositPlayerItem(player, priceSum, myItem);
-        if(result == EconomyResult.OK) {
+        EconomyResult economyResult = DynamicShop.economyManager.depositPlayerItem(player, priceSum, myItem);
+        if(economyResult == EconomyResult.OK) {
             DynamicShop.ccShop.save();
 
             //로그 기록
@@ -1652,8 +1652,12 @@ public class DynaShopAPI {
             {
                 AddShopBalance(shopName,priceSum*-1);
             }
+        } else if(economyResult == EconomyResult.insufficientSpace) {
+            player.sendMessage(DynamicShop.dsPrefix + DynamicShop.ccLang.get().getString("NOT_ENOUGH_SPACE"));
+        } else if(economyResult == EconomyResult.insufficientMoney) {
+            player.sendMessage(DynamicShop.dsPrefix + DynamicShop.ccLang.get().getString("NOT_ENOUGH_MONEY").replace("{bal}",String.valueOf(DynamicShop.economyManager.getMoney(player))));
         } else {
-            player.sendMessage("An Error Occured: " + result);
+            player.sendMessage("An Error Occured: " + economyResult);
         }
     }
 
@@ -1734,6 +1738,10 @@ public class DynaShopAPI {
 
             DynamicShop.ccShop.save();
             DynaShopAPI.OpenItemTradeInven(player, shopName, tradeIdx);
+        } else if(economyResult == EconomyResult.insufficientSpace) {
+            player.sendMessage(DynamicShop.dsPrefix + DynamicShop.ccLang.get().getString("NOT_ENOUGH_SPACE"));
+        } else if(economyResult == EconomyResult.insufficientMoney) {
+            player.sendMessage(DynamicShop.dsPrefix + DynamicShop.ccLang.get().getString("NOT_ENOUGH_MONEY").replace("{bal}",String.valueOf(DynamicShop.economyManager.getMoney(player))));
         } else {
             player.sendMessage("An error occured: " + economyResult);
         }
@@ -1836,9 +1844,11 @@ public class DynaShopAPI {
 
                 DynaShopAPI.OpenItemTradeInven(player,shopName, tradeIdx);
                 DynamicShop.ccShop.save();
-            }
-            else
-            {
+            } else if(economyResult == EconomyResult.insufficientSpace) {
+                player.sendMessage(DynamicShop.dsPrefix + DynamicShop.ccLang.get().getString("NOT_ENOUGH_SPACE"));
+            } else if(economyResult == EconomyResult.insufficientMoney) {
+                player.sendMessage(DynamicShop.dsPrefix + DynamicShop.ccLang.get().getString("NOT_ENOUGH_MONEY").replace("{bal}",String.valueOf(DynamicShop.economyManager.getMoney(player))));
+            } else {
                 player.sendMessage("An error occured: " + economyResult);
             }
         }

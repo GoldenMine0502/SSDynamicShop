@@ -81,7 +81,7 @@ public final class DynamicShop extends JavaPlugin implements Listener {
 
         economyManager = new DynamicShopEconomyManager(this);
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, null, 100, 0);
+        //Bukkit.getScheduler().scheduleSyncRepeatingTask(this, null, 100, 0);
 
         // 이벤트 등록
         getServer().getPluginManager().registerEvents(this,this);
@@ -503,6 +503,7 @@ public final class DynamicShop extends JavaPlugin implements Listener {
             ccLang.get().addDefault("DELIVERYCHARGE_EXEMPTION", "§f배달비: {fee} ({fee2} 면제됨)");
             ccLang.get().addDefault("DELIVERYCHARGE_NA", "§f다른 월드로 배달할 수 없습니다.");
             ccLang.get().addDefault("NOT_ENOUGH_MONEY", "§f돈이 부족합니다. 잔액: {bal}");
+            ccLang.get().addDefault("NOT_ENOUGH_SPACE", "§f거스름돈을 위한 인벤토리 공간이 부족합니다.");
             ccLang.get().addDefault("NOT_ENOUGH_POINT", "§f포인트가 부족합니다. 잔액: {bal}");
             ccLang.get().addDefault("NO_ITEM_TO_SELL", "§f판매 할 아이탬이 없습니다.");
             ccLang.get().addDefault("INVEN_FULL", "§4인벤토리에 빈 공간이 없습니다!");
@@ -712,6 +713,7 @@ public final class DynamicShop extends JavaPlugin implements Listener {
             ccLang.get().addDefault("DELIVERYCHARGE_EXEMPTION", "§fDelivery charge: {fee} ({fee2} exempt)");
             ccLang.get().addDefault("DELIVERYCHARGE_NA", "§fCan't deliver to different world.");
             ccLang.get().addDefault("NOT_ENOUGH_MONEY", "§fNot enough money. Balance: {bal}");
+            ccLang.get().addDefault("NOT_ENOUGH_SPACE", "§fNo inventory space for charge.");
             ccLang.get().addDefault("NOT_ENOUGH_POINT", "§fNot enough point. Balance: {bal}");
             ccLang.get().addDefault("NO_ITEM_TO_SELL", "§fNot enough item.");
             ccLang.get().addDefault("INVEN_FULL", "§4Inventory is full!");
