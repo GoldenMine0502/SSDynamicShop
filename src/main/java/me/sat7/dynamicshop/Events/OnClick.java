@@ -42,7 +42,7 @@ public class OnClick implements Listener {
         }
 
         Player player = (Player)e.getWhoClicked();
-
+        player.sendMessage(String.valueOf(e.getSlot()));
         // 클릭된 인벤토리가 UI임
         if(e.getClickedInventory() != player.getInventory())
         {
@@ -58,7 +58,6 @@ public class OnClick implements Listener {
                     return;
                 }
             }
-
             // 스타트페이지
             if(e.getView().getTitle().equalsIgnoreCase(DynamicShop.ccStartpage.get().getString("Options.Title")))
             {
@@ -824,14 +823,14 @@ public class OnClick implements Listener {
                         if(e.getSlot() == 0)
                         {
                             DynaShopAPI.PlayerSoundEffect(player,"click");
-                            if(DynamicShop.ccShop.get().contains(shopName+".Options.flag.jobpoint"))
-                            {
-                                player.sendMessage(DynamicShop.dsPrefix + DynamicShop.ccLang.get().get("BALANCE") + ":§f " + DynaShopAPI.df.format(DynaShopAPI.GetCurJobPoints(player)) + "Points");
-                            }
-                            else
-                            {
-                                player.sendMessage(DynamicShop.dsPrefix + DynamicShop.ccLang.get().get("BALANCE") + ":§f " + DynamicShop.getEconomy().format(DynamicShop.getEconomy().getBalance(player)));
-                            }
+//                            if(DynamicShop.ccShop.get().contains(shopName+".Options.flag.jobpoint"))
+//                            {
+//                                player.sendMessage(DynamicShop.dsPrefix + DynamicShop.ccLang.get().get("BALANCE") + ":§f " + DynaShopAPI.df.format(DynaShopAPI.GetCurJobPoints(player)) + "Points");
+//                            }
+//                            else
+//                            {
+                                player.sendMessage(DynamicShop.dsPrefix + DynamicShop.ccLang.get().get("BALANCE") + ":§f " + DynamicShop.economyManager.format(DynamicShop.economyManager.getMoney(player)));
+//                            }
                             return;
                         }
 
@@ -938,14 +937,14 @@ public class OnClick implements Listener {
                                 return;
                             }
 
-                            if(optionS.contains("flag.jobpoint"))
-                            {
-                                DynaShopAPI.SellItem_jobPoint(player,shopName,tradeIdx,tempIS,priceSum,deliverycharge,infiniteStock);
-                            }
-                            else
-                            {
+//                            if(optionS.contains("flag.jobpoint"))
+//                            {
+//                                DynaShopAPI.SellItem_jobPoint(player,shopName,tradeIdx,tempIS,priceSum,deliverycharge,infiniteStock);
+//                            }
+//                            else
+//                            {
                                 DynaShopAPI.SellItem_cash(player,shopName,tradeIdx,tempIS,priceSum,deliverycharge,infiniteStock);
-                            }
+//                            }
                         }
                         // 구매
                         else
@@ -957,14 +956,14 @@ public class OnClick implements Listener {
                                 return;
                             }
 
-                            if(optionS.contains("flag.jobpoint"))
-                            {
-                                DynaShopAPI.BuyItem_jobPoint(player,shopName,tradeIdx,tempIS,priceSum,deliverycharge,infiniteStock);
-                            }
-                            else
-                            {
+//                            if(optionS.contains("flag.jobpoint"))
+//                            {
+//                                DynaShopAPI.BuyItem_jobPoint(player,shopName,tradeIdx,tempIS,priceSum,deliverycharge,infiniteStock);
+//                            }
+//                            else
+//                            {
                                 DynaShopAPI.BuyItem_cash(player,shopName,tradeIdx,tempIS,priceSum,deliverycharge,infiniteStock);
-                            }
+//                            }
                         }
                     }
                 }

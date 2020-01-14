@@ -1,5 +1,8 @@
 package me.sat7.dynamicshop;
 
+import kr.dja.aldarEconomy.AldarEconomyCore;
+import kr.dja.aldarEconomy.api.AldarEconomy;
+import kr.dja.aldarEconomy.api.token.SystemID;
 import me.sat7.dynamicshop.Commands.*;
 import me.sat7.dynamicshop.Events.JoinQuit;
 import me.sat7.dynamicshop.Events.OnChat;
@@ -19,6 +22,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.*;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.io.File;
@@ -29,10 +33,10 @@ import java.util.Random;
 
 public final class DynamicShop extends JavaPlugin implements Listener {
 
-    private static Economy econ = null; // 볼트에 물려있는 이코노미
-    public static Economy getEconomy() {
-        return econ;
-    }
+//    private static Economy econ = null; // 볼트에 물려있는 이코노미
+//    public static Economy getEconomy() {
+//        return econ;
+//    }
 
     public static DynamicShop plugin;
     public static ConsoleCommandSender console;
@@ -53,6 +57,8 @@ public final class DynamicShop extends JavaPlugin implements Listener {
     public static boolean updateAvailable = false;
     public static boolean jobsRebornActive = false;
 
+    public static DynamicShopEconomyManager economyManager;
+
     @Override
     public void onEnable() {
         plugin = this;
@@ -72,6 +78,10 @@ public final class DynamicShop extends JavaPlugin implements Listener {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
+        economyManager = new DynamicShopEconomyManager(this);
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, null, 100, 0);
 
         // 이벤트 등록
         getServer().getPluginManager().registerEvents(this,this);
@@ -126,34 +136,34 @@ public final class DynamicShop extends JavaPlugin implements Listener {
         console.sendMessage(dsPrefix_server + " Enabled! :)");
 
         // 업데이트 확인
-        UpdateCheck updater = new UpdateCheck(plugin, 65603);
-        try {
-            if(updater.checkForUpdates()) {
-                // this will print when haves update
-                updateAvailable = true;
-                console.sendMessage("§3-------------------------------------------------------");
-                console.sendMessage(dsPrefix_server+"Plugin outdated!!");
-                console.sendMessage("https://www.spigotmc.org/resources/65603/");
-                console.sendMessage("§3-------------------------------------------------------");
-            }else{
-                // this will print when no updates
-                updateAvailable = false;
-                console.sendMessage("§3-------------------------------------------------------");
-                console.sendMessage(dsPrefix_server+" Plugin is up to date!");
-                console.sendMessage("Please rate my plugin if you like it");
-                console.sendMessage("https://www.spigotmc.org/resources/65603/");
-                console.sendMessage("§3-------------------------------------------------------");
-            }
-        } catch (Exception e) {
-            console.sendMessage(dsPrefix_server+"Failed to check update. Try again later.");
-        }
-
-        // bstats
-        Metrics metrics = new Metrics(this);
+//        UpdateCheck updater = new UpdateCheck(plugin, 65603);
+//        try {
+//            if(updater.checkForUpdates()) {
+//                // this will print when haves update
+//                updateAvailable = true;
+//                console.sendMessage("§3-------------------------------------------------------");
+//                console.sendMessage(dsPrefix_server+"Plugin outdated!!");
+//                console.sendMessage("https://www.spigotmc.org/resources/65603/");
+//                console.sendMessage("§3-------------------------------------------------------");
+//            }else{
+//                // this will print when no updates
+//                updateAvailable = false;
+//                console.sendMessage("§3-------------------------------------------------------");
+//                console.sendMessage(dsPrefix_server+" Plugin is up to date!");
+//                console.sendMessage("Please rate my plugin if you like it");
+//                console.sendMessage("https://www.spigotmc.org/resources/65603/");
+//                console.sendMessage("§3-------------------------------------------------------");
+//            }
+//        } catch (Exception e) {
+//            console.sendMessage(dsPrefix_server+"Failed to check update. Try again later.");
+//        }
+//
+//        // bstats
+//        Metrics metrics = new Metrics(this);
 
         // Optional: Add custom charts
         // todo: 이거 지워야함... 그냥 지우니까 에러뜸.
-        metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
+//        metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
     }
 
     private static int randomStockCount = 1;
@@ -2563,10 +2573,12 @@ public final class DynamicShop extends JavaPlugin implements Listener {
             console.sendMessage(dsPrefix_server + " RSP is null!");
             return false;
         }
-        econ = rsp.getProvider();
+//        econ = rsp.getProvider();
         console.sendMessage(dsPrefix_server + " Vault Found");
-        return econ != null;
+//        return econ != null;
+        return true; // getProvider() is NotNull
     }
+
 
     @Override
     public void onDisable() { console.sendMessage(dsPrefix_server + " Disabled"); }

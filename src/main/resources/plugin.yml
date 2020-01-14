@@ -1,7 +1,7 @@
 name: DynamicShop
 version: ${project.version}
 main: me.sat7.dynamicshop.DynamicShop
-depend: [Vault]
+depend: [Vault, AldarEconomy]
 softdepend: [PlaceholderAPI, Jobs]
 api-version: 1.13
 authors: [sat7]

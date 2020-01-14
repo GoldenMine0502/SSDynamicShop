@@ -1,5 +1,6 @@
 package me.sat7.dynamicshop.Commands;
 
+import kr.dja.aldarEconomy.api.EconomyResult;
 import me.sat7.dynamicshop.DynaShopAPI;
 import me.sat7.dynamicshop.DynamicShop;
 import net.milkbowl.vault.economy.Economy;
@@ -1151,7 +1152,7 @@ public class RootCommand implements CommandExecutor {
 
                                     if(DynamicShop.ccShop.get().contains(args[1]+".Options.flag.jobpoint"))
                                     {
-                                        DynaShopAPI.AddJobsPoint(target,amount);
+//                                        DynaShopAPI.AddJobsPoint(target,amount);
                                         DynaShopAPI.AddShopBalance(args[1],amount * -1);
                                         DynamicShop.ccShop.save();
 
@@ -1159,10 +1160,10 @@ public class RootCommand implements CommandExecutor {
                                     }
                                     else
                                     {
-                                        Economy econ = DynamicShop.getEconomy();
-                                        EconomyResponse er = econ.depositPlayer(target, amount);
+                                        // edited by GoldenMine
+                                        EconomyResult economyResult = DynamicShop.economyManager.depositPlayerShop(target, amount, shopName);
 
-                                        if(er.transactionSuccess())
+                                        if(economyResult == EconomyResult.OK)
                                         {
                                             DynaShopAPI.AddShopBalance(args[1],amount * -1);
                                             DynamicShop.ccShop.save();
