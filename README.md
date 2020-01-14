@@ -2,6 +2,7 @@
 Spaghetti from hell. Good Luck.
 
 원작자는 제가 아니라 그분이심니다~!!!!!
+스탯 관련 기능, jobs 관련 기능을 모두 주석처리했습니다.
 
 [Link]
 
