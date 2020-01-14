@@ -1,6 +1,8 @@
 # SSDynamicShop
 Spaghetti from hell. Good Luck.
 
+원작자는 제가 아니라 그분이심니다~!!!!!
+
 [Link]
 
 Spigot https://www.spigotmc.org/resources/65603/
